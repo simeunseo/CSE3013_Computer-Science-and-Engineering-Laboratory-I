@@ -1,0 +1,21 @@
+#!/bin/bash
+
+words=""
+
+for word in $@
+do
+{
+        words+="${word}|"
+}
+done
+
+if [ -z "$words" ]; then
+        echo "Usage: phone searchfor [...searchfor]
+ (You didn't tell me what you want to search for.)"
+        exit
+fi
+
+words="${words:0:-1}"
+
+egrep -i "$words" mydata > temp
+awk -f display.awk temp
